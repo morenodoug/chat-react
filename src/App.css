@@ -58,3 +58,7 @@
 .form-top .right .icon {
     float: right;
 }
+
+.form-bottom {
+    padding: 2%;
+}

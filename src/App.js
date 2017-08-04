@@ -5,8 +5,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import {FaUser} from 'react-icons/lib/fa';
 
-
-
+import EmailInput from '../src/components/EmailInput'
 
 
 class App extends Component {
@@ -31,7 +30,14 @@ class App extends Component {
               </div>
             
             </div>
-            <div className="form-bottom"></div>
+            <div className="form-bottom">
+              <div className="form-group">
+                <label className="" >Email</label>
+                <EmailInput/>
+              </div>
+              
+              
+            </div>
 
          
 

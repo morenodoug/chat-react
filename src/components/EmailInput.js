@@ -61,15 +61,19 @@ class EmailInput extends React.Component{
     const isTouched = this.state.touched;
     const hasError = this.state.error.status;
     const message= this.state.error.message;
+    
+    let classes = this.props.classes; 
+
     if( (isTouched) && (hasError)  ){
-      console.log('genera el error');
+      
       showErrorMessage = <ErrorMessage message={message}   />
+      classes = classes.concat("  ",this.props.errorClass);
       console.log(message)
     }
     
     return(
       <div>
-        <input type="text" className="form-control" onBlur={this.handleBlur}/>
+        <input type="text" className= {classes} onBlur={this.handleBlur}/>
 
         {showErrorMessage} 
         

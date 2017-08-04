@@ -27,6 +27,13 @@
     }
 }
 
+
+/*FORM BOX*/
+
+input.input-error {
+    border: solid red;
+}
+
 .form-top {
     overflow: hidden;
     background: #222;
@@ -62,3 +69,6 @@
 .form-bottom {
     padding: 2%;
 }
+
+
+/*FORM BOX*/

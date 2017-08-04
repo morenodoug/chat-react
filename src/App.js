@@ -30,17 +30,17 @@ class App extends Component {
               </div>
             
             </div>
-            <div className="form-bottom">
-              <div className="form-group">
-                <label className="" >Email</label>
-                <EmailInput/>
+            <div className="form-bottom ">
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="form-group">
+                    <label className="" >Email</label>
+                    <EmailInput classes="form-control" errorClass="input-error"/>
+                  </div>
+                </div>
               </div>
               
-              
             </div>
-
-         
-
           
           </div>        
         </div>

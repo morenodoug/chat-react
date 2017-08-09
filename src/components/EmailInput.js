@@ -31,25 +31,25 @@ class EmailInput extends React.Component{
   }
   handleBlur(event){
     let value = event.target.value.trim();    
-    if(!this.isEmail(value)){ 
-      this.setState({
-        error:{
-          status:true,
-          message:"proporcione email valido"
-        },
-        touched:true,
-        value: value
-      });      
-    }else{
-      
-      this.setState({
-        error:{
-          status:false
-        },
-        touched:true,
-        value: value
+    
+    let newState = {
+      error:{
+        status:true,
+        message:"proporcione email valido"
+      },
+      touched:true,
+      value: value
+    };
 
-      });      
+    if(!this.isEmail(value)){ 
+
+      this.setState(newState, this.props.setEmailState(true,null));      
+    }else{
+
+      newState.error.status= false;
+      newState.error.message= "";
+      newState.value = value;
+      this.setState(newState, this.props.setEmailState(false,value));      
     }
 
        

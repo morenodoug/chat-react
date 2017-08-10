@@ -73,7 +73,7 @@ class EmailInput extends React.Component{
     
     return(
       <div>
-        <input type="text" className= {classes} onBlur={this.handleBlur}/>
+        <input type="text" className= {classes} onBlur={this.handleBlur} />
 
         {showErrorMessage} 
         

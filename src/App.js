@@ -6,6 +6,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {FaUser} from 'react-icons/lib/fa';
 
 import EmailInput from '../src/components/EmailInput'
+import NameInput from '../src/components/NameInput'
 
 
 class App extends Component {
@@ -14,34 +15,59 @@ class App extends Component {
     super(props); 
 
     this.setEmailState = this.setEmailState.bind(this);
+    this.setNameState = this.setNameState.bind(this);
     this.state =   {
         registerForm:{
           email:{
             error: true,
             value:"" ,
           },
+          name:{
+            error:true,
+            value:""
+          },
           password:{
             error:true,
             value: ""
           }
 
-        }
+        },
+        band:"motorhead"
     }
   }// end constructor
 
   setEmailState(error, value){
-    console.log(`el  valor de error: ${error}`);
-    console.log(`el  valor de value: ${value}`);
+    
     this.setState((prevState, props)=>{
+     
       let newEmailState = Object.assign(prevState.registerForm)
       let newState =Object.assign({}, prevState,);
-      newState.registerForm.email.error= error;
-      newState.registerForm.email.value= value;
-      console.log(newState);
-      return newState;
+      // newState.registerForm.email.error= error;
+      // newState.registerForm.email.value= value;
+      // console.log(newState);
+      newEmailState.email.error = error;
+      newEmailState.email.value = value;
+      return {
+        registerForm:newEmailState
+      };
 
     });
   
+  }
+
+  setNameState(error, value){
+
+    this.setState((prevState, props)=>{
+
+      let registerFormState = Object.assign({},prevState.registerForm);
+      registerFormState.name.error = error;
+      registerFormState.name.value = value;
+      
+      return {
+        registerForm:registerFormState
+      }
+
+    });
   }
 
 
@@ -70,6 +96,17 @@ class App extends Component {
             
             </div>
             <div className="form-bottom ">
+
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="form-group">
+                    <label className="" >Name</label>
+                    <NameInput classes="form-control" errorClass="input-error" setNameState={this.setNameState} />
+                  </div>
+                </div>
+              </div>
+
+
               <div className="row">
                 <div className="col-md-12">
                   <div className="form-group">

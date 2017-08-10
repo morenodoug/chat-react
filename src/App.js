@@ -5,9 +5,11 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import {FaUser} from 'react-icons/lib/fa';
 
-import EmailInput from '../src/components/EmailInput'
-import NameInput from '../src/components/NameInput'
+import EmailInput from '../src/components/EmailInput';
+import NameInput from '../src/components/NameInput';
+import PasswordInput from '../src/components/PasswordInput';
 
+import RepeatPasswordInput from '../src/components/RepeatPasswordInput'
 
 class App extends Component {
 
@@ -16,6 +18,9 @@ class App extends Component {
 
     this.setEmailState = this.setEmailState.bind(this);
     this.setNameState = this.setNameState.bind(this);
+    this.setPasswordState = this.setPasswordState.bind(this);
+    this.setRepeatPasswordState =  this.setRepeatPasswordState.bind(this);
+    
     this.state =   {
         registerForm:{
           email:{
@@ -29,7 +34,11 @@ class App extends Component {
           password:{
             error:true,
             value: ""
-          }
+          },
+          repeatPassword:{
+            error:true,
+            value: ""
+          }          
 
         },
         band:"motorhead"
@@ -70,7 +79,32 @@ class App extends Component {
     });
   }
 
+  setPasswordState(error,value){
 
+    this.setState((prevState,props) =>{
+
+      let registerFormState = Object.assign({}, prevState.registerForm);
+      registerFormState.password.error = error;
+      registerFormState.password.value = value;
+
+      return {
+        registerForm: registerFormState
+      }
+    });
+     
+  }
+
+  setRepeatPasswordState(error,value){
+    this.setState((prevState, props) =>{
+      let registerFormState = Object.assign({},prevState.registerForm);
+      registerFormState.repeatPassword.error = error;
+      registerFormState.repeatPassword.value = value;
+
+      return {
+        registerForm: registerFormState
+      };
+    });
+  }
     
   
   render() {
@@ -116,8 +150,26 @@ class App extends Component {
                 </div>
               </div>
               
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="form-group">
+                    <label className="" >Password</label>
+                    <PasswordInput classes="form-control" errorClass="input-error" setPasswordState={this.setPasswordState}/>
+                  </div>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="form-group">
+                    <label className="" >Repeat Password</label>
+                    {/*<RepeatPasswordInput classes="form-control" errorClass="input-error" compareWith={this.state.registerForm.password.value} setRepeatPasswordState={this.setRepeatPasswordState}/>*/}
+                  </div>
+                </div>
+              </div>
+
+
             </div>
-          
           </div>        
         </div>
       </div>

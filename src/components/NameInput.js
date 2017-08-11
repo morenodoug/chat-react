@@ -63,6 +63,22 @@ class NameInput extends React.Component{
         
     }
 
+
+    shouldComponentUpdate(nextProps, nextState){
+
+         
+        if(nextState.touched!==this.state.touched || 
+        nextState.error.status !== this.state.error.status || 
+        nextState.error.message !== this.state.error.message ||
+        nextState.value !== this.state.value
+        ){
+
+            return true;
+        }   
+
+        return false;
+    }
+    
     render(){
 
         let showErrorMessage;

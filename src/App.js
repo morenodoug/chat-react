@@ -163,7 +163,7 @@ class App extends Component {
                 <div className="col-md-12">
                   <div className="form-group">
                     <label className="" >Repeat Password</label>
-                    {/*<RepeatPasswordInput classes="form-control" errorClass="input-error" compareWith={this.state.registerForm.password.value} setRepeatPasswordState={this.setRepeatPasswordState}/>*/}
+                    <RepeatPasswordInput classes="form-control" errorClass="input-error" compareWith={this.state.registerForm.password.value} setRepeatPasswordState={this.setRepeatPasswordState}/>
                   </div>
                 </div>
               </div>

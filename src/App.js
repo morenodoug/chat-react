@@ -145,7 +145,7 @@ class App extends Component {
                 <div className="col-md-12">
                   <div className="form-group">
                     <label className="" >Email</label>
-                    <EmailInput classes="form-control" errorClass="input-error" setEmailState={this.setEmailState}/>
+                    <EmailInput classes="form-control" errorClass="input-error"  setEmailState={this.setEmailState}/>
                   </div>
                 </div>
               </div>

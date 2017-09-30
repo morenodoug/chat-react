@@ -1,8 +1,6 @@
 import React from 'react';
 
-function ErrorMessage(props){
-  return(<p>{props.message}</p>);
-}
+import ErrorMessage from './ErrorMessage';
 
 
 class NameInput extends React.Component{
@@ -11,13 +9,14 @@ class NameInput extends React.Component{
         super(props);
 
         this.isName =  this.isName.bind(this);
-        this.handleBlur = this.handleBlur.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.state={
-            touched:false,
+            
             error:{
                 status: true,
                 message: null
-            },   
+            },
+            touched:false,   
             value:'' 
         }
 
@@ -31,7 +30,7 @@ class NameInput extends React.Component{
         return nameRegex.test(name);
     }
 
-    handleBlur(event){
+    handleChange(event){
         let nameValue = event.target.value.trim();
         //reemplazar espacios en blanco repetidos
         nameValue.replace(/\s+/g,' ') ;
@@ -97,7 +96,7 @@ class NameInput extends React.Component{
 
         return(
         <div>
-            <input type="text" className= {classes} onBlur={this.handleBlur}/>
+            <input type="text" className= {classes} onBlur={this.handleChange}/>
             {showErrorMessage}           
         </div>
             

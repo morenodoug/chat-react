@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {FaUser} from 'react-icons/lib/fa';
 
-import EmailInput from '../src/components/EmailInput';
-import NameInput from '../src/components/NameInput';
-import PasswordInput from '../src/components/PasswordInput';
+import EmailInput from './EmailInput';
+import NameInput from './NameInput';
+import PasswordInput from './PasswordInput';
 
-import RepeatPasswordInput from '../src/components/RepeatPasswordInput';
+import RepeatPasswordInput from './RepeatPasswordInput';
 
 class RegisterForm extends Component {
 
@@ -37,7 +37,7 @@ class RegisterForm extends Component {
           }          
 
         },
-        band:"motorhead"
+
     }
   }// end constructor
 
@@ -46,10 +46,7 @@ class RegisterForm extends Component {
     this.setState((prevState, props)=>{
      
       let newEmailState = Object.assign(prevState.registerForm)
-      let newState =Object.assign({}, prevState,);
-      // newState.registerForm.email.error= error;
-      // newState.registerForm.email.value= value;
-      // console.log(newState);
+      
       newEmailState.email.error = error;
       newEmailState.email.value = value;
       return {
@@ -78,11 +75,11 @@ class RegisterForm extends Component {
   setPasswordState(error,value){
 
     this.setState((prevState,props) =>{
-
+      
       let registerFormState = Object.assign({}, prevState.registerForm);
       registerFormState.password.error = error;
       registerFormState.password.value = value;
-
+      console.log(prevState.registerForm.repeatPassword)
       return {
         registerForm: registerFormState
       }
@@ -104,71 +101,75 @@ class RegisterForm extends Component {
     
   
   render() {
+    let disabled = (this.state.registerForm.name.error || 
+                    this.state.registerForm.email.error  ||
+                    this.state.registerForm.password.error ||
+                    this.state.registerForm.repeatPassword.error
+               ); 
+
+
 
     return (
-      <div className="App container">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <div className="row">  
-          <div className="col-md-4 col-md-offset-4">
-            <div className="form-top" >
-              <div className="left">
-                <h4>Registro   </h4>
+    
+
+      <div className="row">  
+        <div className="col-md-4 col-md-offset-4">
+          <div className="form-top" >
+            <div className="left">
+              <h4>Registro   </h4>
+            </div>
+            <div className="right">
+              <FaUser size={30} className="icon"/>
+            </div>
+          
+          </div>
+          <div className="form-bottom ">
+
+            <div className="row">
+              <div className="col-md-12">
+                <div className="form-group">
+                  <label className="" >Nombre</label>
+                  <NameInput classes="form-control" errorClass="input-error" setNameState={this.setNameState} />
+                </div>
               </div>
-              <div className="right">
-                <FaUser size={30} className="icon"/>
+            </div>
+
+
+            <div className="row">
+              <div className="col-md-12">
+                <div className="form-group">
+                  <label className="" >Email</label>
+                  <EmailInput classes="form-control" errorClass="input-error"  setEmailState={this.setEmailState}/>
+                </div>
               </div>
+            </div>
             
+            <div className="row">
+              <div className="col-md-12">
+                <div className="form-group">
+                  <label className="" >Password</label>
+                  <PasswordInput classes="form-control" errorClass="input-error" setPasswordState={this.setPasswordState}/>
+                </div>
+              </div>
             </div>
-            <div className="form-bottom ">
 
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label className="" >Name</label>
-                    <NameInput classes="form-control" errorClass="input-error" setNameState={this.setNameState} />
-                  </div>
+            <div className="row">
+              <div className="col-md-12">
+                <div className="form-group">
+                  <label className="" >Confirmar Password</label>
+                  <RepeatPasswordInput classes="form-control" errorClass="input-error" compareWith={this.state.registerForm.password.value} setRepeatPasswordState={this.setRepeatPasswordState}/>
                 </div>
               </div>
-
-
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label className="" >Email</label>
-                    <EmailInput classes="form-control" errorClass="input-error"  setEmailState={this.setEmailState}/>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label className="" >Password</label>
-                    <PasswordInput classes="form-control" errorClass="input-error" setPasswordState={this.setPasswordState}/>
-                  </div>
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label className="" >Repeat Password</label>
-                    <RepeatPasswordInput classes="form-control" errorClass="input-error" compareWith={this.state.registerForm.password.value} setRepeatPasswordState={this.setRepeatPasswordState}/>
-                  </div>
-                </div>
-              </div>
-
-
             </div>
-          </div>        
-        </div>
+            <div className="row">
+              <button className="btn btn-success" disabled={disabled} >Registrar</button>
+            </div>
+
+
+          </div>
+        </div>        
       </div>
+    
     );
   }
 }

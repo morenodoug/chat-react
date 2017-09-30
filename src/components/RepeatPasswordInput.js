@@ -40,15 +40,14 @@ class RepeatPasswordInput extends React.Component{
             if(nextProps.compareWith !== this.state.value){
 
                 newState.error.status = true;
-                newState.error.status = true;
                 newState.error.message=" los passwords no coinciden";
-                this.setState(newState,this.props.setRepeatPasswordState);
+                this.setState(newState,this.props.setRepeatPasswordState(true,this.state.value));
 
             }else{
 
                 newState.error.status = false;
                 newState.error.message="";
-                this.setState(newState,this.props.setRepeatPasswordState);
+                this.setState(newState,this.props.setRepeatPasswordState(false,this.state.value));
 
             }
 
@@ -72,12 +71,12 @@ class RepeatPasswordInput extends React.Component{
         if(event.target.value !== this.props.compareWith){
             newState.error.status = true;
             newState.error.message=" los passwords no coinciden";
-            this.setState(newState, this.props.setRepeatPasswordState);
+            this.setState(newState, this.props.setRepeatPasswordState(true,event.target.value));
         }else{
 
             newState.error.status = false;
             newState.error.message="";
-            this.setState(newState, this.props.setRepeatPasswordState);            
+            this.setState(newState, this.props.setRepeatPasswordState(false,event.target.value));            
         }
 
     }

@@ -107,7 +107,7 @@ class RegisterForm extends Component {
     let email = this.state.registerForm.email.value;
     let password = this.state.registerForm.password.value;
   
-    this.props.dispatch(signUP( {name,email,password}));
+    this.props.dispatch(signUP(name, email, password));
   }
     
   

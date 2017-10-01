@@ -13,7 +13,7 @@ export function setUserInfo(user) {
 
 
 
-export function signUP({ name, email, password }) {
+export function signUP(name, email, password) {
     console.log(`name:${name}  email:${email} password:${password}`);
 
     return (dispatch, getState) => {

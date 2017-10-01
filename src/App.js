@@ -2,24 +2,24 @@ import React, { Component } from 'react';
 import './App.css'
 import RegisterForm from './components/RegisterForm'
 
+import { Provider } from 'react-redux';
+import configureStore from './configureStore';
+
+const store = configureStore();
+
 
 
 class App extends Component {
 
-  constructor(props){
-    super(props); 
- 
-   
-  }// end constructor
- 
-  
+
   render() {
 
 
     return (
       <div className="container">
-        <RegisterForm/>
-
+        <Provider store={store}>
+          <RegisterForm/>
+        </Provider>
       </div>  
     );
   }

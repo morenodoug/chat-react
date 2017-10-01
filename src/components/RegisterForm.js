@@ -4,8 +4,10 @@ import {FaUser} from 'react-icons/lib/fa';
 import EmailInput from './EmailInput';
 import NameInput from './NameInput';
 import PasswordInput from './PasswordInput';
-
 import RepeatPasswordInput from './RepeatPasswordInput';
+
+import {connect} from 'react-redux';
+import {signUP} from '../actions';
 
 class RegisterForm extends Component {
 
@@ -16,6 +18,7 @@ class RegisterForm extends Component {
     this.setNameState = this.setNameState.bind(this);
     this.setPasswordState = this.setPasswordState.bind(this);
     this.setRepeatPasswordState =  this.setRepeatPasswordState.bind(this);
+    this.handleRegisterButton = this.handleRegisterButton.bind(this);
     
     this.state =   {
         registerForm:{
@@ -98,6 +101,14 @@ class RegisterForm extends Component {
       };
     });
   }
+
+  handleRegisterButton(){
+    let name = this.state.registerForm.name.value;
+    let email = this.state.registerForm.email.value;
+    let password = this.state.registerForm.password.value;
+  
+    this.props.dispatch(signUP( {name,email,password}));
+  }
     
   
   render() {
@@ -162,7 +173,7 @@ class RegisterForm extends Component {
               </div>
             </div>
             <div className="row">
-              <button className="btn btn-success" disabled={disabled} >Registrar</button>
+              <button className="btn btn-success" disabled={disabled} onClick = {this.handleRegisterButton} >Registrate</button>
             </div>
 
 
@@ -175,4 +186,4 @@ class RegisterForm extends Component {
 }
 
 
-export default RegisterForm;
+export default connect(null)( RegisterForm);

@@ -17,7 +17,7 @@ class EmailInput extends React.Component{
         message: null
       },
      
-      value:'' 
+      value:''
     }
     this.isEmail = this.isEmail.bind(this);
     this.handleBlur = this.handleBlur.bind(this);

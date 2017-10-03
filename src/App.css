@@ -72,3 +72,7 @@ input.input-error {
 
 
 /*FORM BOX*/
+
+.error-div {
+    margin-top: 1em;
+}

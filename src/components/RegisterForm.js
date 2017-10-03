@@ -9,6 +9,15 @@ import RepeatPasswordInput from './RepeatPasswordInput';
 import {connect} from 'react-redux';
 import {signUP} from '../actions';
 
+function errorMessage ( message){
+  return (
+    <div className="alert alert-danger alert-dismissable">
+      <a href="#" className="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {message}.
+    </div>
+  )
+}
+
 class RegisterForm extends Component {
 
   constructor(props){
@@ -40,6 +49,11 @@ class RegisterForm extends Component {
           }          
 
         },
+        isFetching: false,
+        error:{
+          status:false,
+          message:''
+        }
 
     }
   }// end constructor
@@ -106,17 +120,41 @@ class RegisterForm extends Component {
     let name = this.state.registerForm.name.value;
     let email = this.state.registerForm.email.value;
     let password = this.state.registerForm.password.value;
-  
-    this.props.dispatch(signUP(name, email, password));
+    
+    let newState =  Object.assign({},this.state,{isFetching:true});
+    
+    this.setState( newState, () =>{
+      
+      this.props.dispatch(signUP(name, email, password))
+      .then((response) =>{
+        if (response.status ===400){
+
+          let newState = Object.assign(this.state,{isFetching:false}, {error:{status:true, message:response.data.error}});
+          this.setState(newState);
+
+        }
+
+        
+
+      })
+    });
+
+    
   }
     
   
   render() {
-    let disabled = (this.state.registerForm.name.error || 
+    let disabledButton = (this.state.registerForm.name.error || 
                     this.state.registerForm.email.error  ||
                     this.state.registerForm.password.error ||
-                    this.state.registerForm.repeatPassword.error
-               ); 
+                    this.state.registerForm.repeatPassword.error ||
+                    this.state.isFetching
+               );
+
+    let errorDiv; 
+    if( this.state.error.status){
+       errorDiv =  errorMessage(this.state.error.message)
+    }
 
 
 
@@ -173,9 +211,24 @@ class RegisterForm extends Component {
               </div>
             </div>
             <div className="row">
-              <button className="btn btn-success" disabled={disabled} onClick = {this.handleRegisterButton} >Registrate</button>
+
+              <div className="col-md-12">
+                <button className="btn btn-success" 
+                  disabled={disabledButton} 
+                  onClick = {this.handleRegisterButton} 
+                >
+                    Registrate
+                </button>
+              </div>
+
             </div>
 
+            <div className="row error-div">
+                <div className="col-md-12">
+                  {errorDiv}
+                </div>
+                
+            </div>            
 
           </div>
         </div>        

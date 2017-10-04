@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import {FaUser} from 'react-icons/lib/fa';
 
-import EmailInput from './EmailInput';
-import NameInput from './NameInput';
-import PasswordInput from './PasswordInput';
-import RepeatPasswordInput from './RepeatPasswordInput';
+import EmailInput from '../components/EmailInput';
+import NameInput from '../components/NameInput';import PasswordInput from '../components/PasswordInput';
+
 
 import {connect} from 'react-redux';
-import {signUP} from '../actions';
+import {signIn} from '../actions';
 
 function errorMessage ( message){
   return (
@@ -18,35 +17,26 @@ function errorMessage ( message){
   )
 }
 
-class RegisterForm extends Component {
+class SignInForm extends Component {
 
   constructor(props){
     super(props); 
 
     this.setEmailState = this.setEmailState.bind(this);
-    this.setNameState = this.setNameState.bind(this);
     this.setPasswordState = this.setPasswordState.bind(this);
-    this.setRepeatPasswordState =  this.setRepeatPasswordState.bind(this);
-    this.handleRegisterButton = this.handleRegisterButton.bind(this);
+    this.handleSignInButton = this.handleSignInButton.bind(this);
     
     this.state =   {
-        registerForm:{
+        signInForm:{
           email:{
             error: true,
             value:"" ,
           },
-          name:{
-            error:true,
-            value:""
-          },
+
           password:{
             error:true,
             value: ""
           },
-          repeatPassword:{
-            error:true,
-            value: ""
-          }          
 
         },
         isFetching: false,
@@ -62,79 +52,51 @@ class RegisterForm extends Component {
     
     this.setState((prevState, props)=>{
      
-      let newEmailState = Object.assign(prevState.registerForm)
+      let newEmailState = Object.assign(prevState.signInForm)
       
       newEmailState.email.error = error;
       newEmailState.email.value = value;
       return {
-        registerForm:newEmailState
+        signInForm:newEmailState
       };
 
     });
   
   }
 
-  setNameState(error, value){
-
-    this.setState((prevState, props)=>{
-
-      let registerFormState = Object.assign({},prevState.registerForm);
-      registerFormState.name.error = error;
-      registerFormState.name.value = value;
-      
-      return {
-        registerForm:registerFormState
-      }
-
-    });
-  }
 
   setPasswordState(error,value){
 
     this.setState((prevState,props) =>{
       
-      let registerFormState = Object.assign({}, prevState.registerForm);
-      registerFormState.password.error = error;
-      registerFormState.password.value = value;
-      console.log(prevState.registerForm.repeatPassword)
+      let signInFormState = Object.assign({}, prevState.signInForm);
+      signInFormState.password.error = error;
+      signInFormState.password.value = value;
+
       return {
-        registerForm: registerFormState
+        signInForm: signInFormState
       }
     });
      
   }
 
-  setRepeatPasswordState(error,value){
-    this.setState((prevState, props) =>{
-      let registerFormState = Object.assign({},prevState.registerForm);
-      registerFormState.repeatPassword.error = error;
-      registerFormState.repeatPassword.value = value;
-
-      return {
-        registerForm: registerFormState
-      };
-    });
-  }
-
-  handleRegisterButton(){
-    let name = this.state.registerForm.name.value;
-    let email = this.state.registerForm.email.value;
-    let password = this.state.registerForm.password.value;
+  handleSignInButton(){
+    console.log(this.state.signInForm.email)
+    let email = this.state.signInForm.email.value;
+    let password = this.state.signInForm.password.value;
     
     let newState =  Object.assign({},this.state,{isFetching:true});
     
     this.setState( newState, () =>{
       
-      this.props.dispatch(signUP(name, email, password))
+      this.props.dispatch(signIn(email, password))
       .then((response) =>{
-        if (response.status ===409){
+        if (response.status ===400){
 
           let newState = Object.assign(this.state,{isFetching:false}, {error:{status:true, message:response.data.error}});
           this.setState(newState);
 
         }
-
-        
 
       })
     });
@@ -144,10 +106,9 @@ class RegisterForm extends Component {
     
   
   render() {
-    let disabledButton = (this.state.registerForm.name.error || 
-                    this.state.registerForm.email.error  ||
-                    this.state.registerForm.password.error ||
-                    this.state.registerForm.repeatPassword.error ||
+    let disabledButton = (
+                    this.state.signInForm.email.error  ||
+                    this.state.signInForm.password.error ||
                     this.state.isFetching
                );
 
@@ -165,7 +126,7 @@ class RegisterForm extends Component {
         <div className="col-md-4 col-md-offset-4">
           <div className="form-top" >
             <div className="left">
-              <h4>Registro   </h4>
+              <h4>Iniciar Sesión </h4>
             </div>
             <div className="right">
               <FaUser size={30} className="icon"/>
@@ -173,17 +134,6 @@ class RegisterForm extends Component {
           
           </div>
           <div className="form-bottom ">
-
-            <div className="row">
-              <div className="col-md-12">
-                <div className="form-group">
-                  <label className="" >Nombre</label>
-                  <NameInput classes="form-control" errorClass="input-error" setNameState={this.setNameState} />
-                </div>
-              </div>
-            </div>
-
-
             <div className="row">
               <div className="col-md-12">
                 <div className="form-group">
@@ -203,21 +153,13 @@ class RegisterForm extends Component {
             </div>
 
             <div className="row">
-              <div className="col-md-12">
-                <div className="form-group">
-                  <label className="" >Confirmar Password</label>
-                  <RepeatPasswordInput classes="form-control" errorClass="input-error" compareWith={this.state.registerForm.password.value} setRepeatPasswordState={this.setRepeatPasswordState}/>
-                </div>
-              </div>
-            </div>
-            <div className="row">
 
               <div className="col-md-12">
                 <button className="btn btn-success" 
                   disabled={disabledButton} 
-                  onClick = {this.handleRegisterButton} 
+                  onClick = {this.handleSignInButton} 
                 >
-                    Registrate
+                    Iniciar Sesión
                 </button>
               </div>
 
@@ -239,4 +181,4 @@ class RegisterForm extends Component {
 }
 
 
-export default connect(null)( RegisterForm);
+export default connect(null)( SignInForm);

@@ -12,21 +12,27 @@ export function setUserInfo(user) {
 
 export const signUP = (name, email, password) => (dispatch, getState) => {
 
-    let response = {}
+
     return api.signUp(name, email, password).then((response) => {
         console.log(response);
-        dispatch(authenticatedSuccess(response.data));
+        dispatch(authenticateSuccess(response.data));
         return response;
 
     }).catch((err) => {
-        console.log(err.response);
-        // dispatch({
-        //     type: constans.USER_SIGNUP_FAIL,
-        //     error: err.response.data
-        // })
+
         return err.response
     })
 };
+
+export const signIn = (email, password) => (dispatch, getState) => {
+
+    return api.signIn(email, password).then((response) => {
+        dispatch(authenticateSuccess(response.data))
+        return response;
+    }).catch((err) => {
+        return err.response;
+    })
+}
 
 export function userSignUpFail() {
     return {
@@ -38,14 +44,15 @@ export function userSignUpFail() {
 
 export function userSignUpSucces() {
     return {
-        type: constans.USER_SIGNUP_SUCCESS,
+        type: constans.AUTHENTICATE_STATUS,
         isAuthenticate: true
     }
 }
 
-export const authenticatedSuccess = (userData) => (dispatch, getState) => {
-    console.log('asdasdasd')
+export const authenticateSuccess = (userData) => (dispatch, getState) => {
+    localStorage.setItem('jwt', userData.token);
     dispatch(userSignUpSucces())
     dispatch(setUserInfo({ name: userData.name, email: userData.email, id: userData.id }))
+    window.location.assign('/');
 
 }

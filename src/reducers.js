@@ -18,9 +18,9 @@ function user(state = defaultUser, action) {
 
             };
 
-        case constans.USER_SIGNUP_SUCCESS:
-            console.log('success');
-            console.log(action.data);
+        case constans.AUTHENTICATE_STATUS:
+            // console.log('success');
+            // console.log(action.data);
             return state;
 
         case constans.USER_SIGNUP_FAIL:
@@ -41,7 +41,7 @@ function isAuthenticate(state = false, action) {
         case constans.USER_SIGNUP_FAIL:
             return action.isAuthenticate
 
-        case constans.USER_SIGNUP_SUCCESS:
+        case constans.AUTHENTICATE_STATUS:
             return action.isAuthenticate
 
         default:

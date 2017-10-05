@@ -91,7 +91,7 @@ class SignInForm extends Component {
       
       this.props.dispatch(signIn(email, password))
       .then((response) =>{
-        if (response.status ===400){
+        if (response.status ===401){
 
           let newState = Object.assign(this.state,{isFetching:false}, {error:{status:true, message:response.data.error}});
           this.setState(newState);

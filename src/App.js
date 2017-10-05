@@ -6,43 +6,11 @@ import SignInForm from './containers/SignInForm'
 import { Provider } from 'react-redux';
 import configureStore from './configureStore';
 
-import {BrowserRouter as Router , Route,Switch, Redirect} from 'react-router-dom';
+import {BrowserRouter as Router ,Switch} from 'react-router-dom';
+import PublicRoute from './components/PublicRoute';
+import PrivateRoute from './components/PrivateRoute';
+
 const store = configureStore();
-
-
-function requireAuth(){
-  if( ! localStorage.jwt){
-    return false;
-  }
-  return true;
-}
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    requireAuth() ? (
-      (<h1>asd</h1>)
-    ) : (
-      <Redirect to={{
-        pathname: '/sign-in',
-        state: { from: props.location }
-      }}/>
-    )
-  )}/>
-)
-
-const PublicRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    requireAuth() ? (
-      <Redirect to={{
-        pathname: '/',
-        state: { from: props.location }
-      }}/>
-
-    ) : (
-    <Component {...props}/>
-    )
-  )}/>
-)
 
 class App extends Component {
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css'
-import RegisterForm from './components/RegisterForm'
+import RegisterForm from './containers/RegisterForm'
 import SignInForm from './containers/SignInForm'
 
 import { Provider } from 'react-redux';
@@ -10,6 +10,8 @@ import {BrowserRouter as Router ,Switch} from 'react-router-dom';
 import PublicRoute from './components/PublicRoute';
 import PrivateRoute from './components/PrivateRoute';
 
+import TotalChat from './components/TotalChat';
+
 const store = configureStore();
 
 class App extends Component {
@@ -17,13 +19,12 @@ class App extends Component {
 
   render() {
 
-
     return (
       <div className="container">
         <Provider store={store}>
           <Router>
               <Switch>
-                <PrivateRoute exact path="/"   />
+                <PrivateRoute exact path="/" component ={TotalChat}  />
                 <PublicRoute exact path="/sign-up" component ={RegisterForm}/>
                 <PublicRoute exact path="/sign-in" component={SignInForm}/> 
               </Switch>

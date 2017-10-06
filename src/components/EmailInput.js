@@ -1,10 +1,11 @@
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
-function ErrorMessage(props){
-  return(<p>{props.message}</p>);
-}
+import ErrorMessage from './ErrorMessage';
+
+
 
 class EmailInput extends React.Component{  
   
@@ -20,7 +21,8 @@ class EmailInput extends React.Component{
       value:''
     }
     this.isEmail = this.isEmail.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
+    this.handlerOnChange = this.handlerOnChange.bind(this);
+    this.handlerOnFocus = this.handlerOnFocus.bind(this);
 
   }
 
@@ -46,7 +48,17 @@ class EmailInput extends React.Component{
      
     return email.test(value);
   }
-  handleBlur(event){
+
+  handlerOnFocus(event){
+    if(!this.state.touched){
+      this.setState((prevState, props) =>{
+        let newState = Object.assign({},prevState,{touched:true});
+        return newState;
+      });
+    }
+  }
+
+  handlerOnChange(event){
     let value = event.target.value.trim();    
     
     let newState = {
@@ -90,7 +102,7 @@ class EmailInput extends React.Component{
     
     return(
       <div>
-        <input type="text" className= {classes} onBlur={this.handleBlur} />
+        <input type="text" className= {classes} onFocus={this.handlerOnFocus} onChange={this.handlerOnChange} />
 
         {showErrorMessage} 
         
@@ -100,5 +112,13 @@ class EmailInput extends React.Component{
   }
   
 }//endclass
+
+
+EmailInput.propTypes ={
+  setEmailState: PropTypes.func.isRequired,
+  classes: PropTypes.string,
+  errorClass: PropTypes.string
+
+}
 
 export default EmailInput;

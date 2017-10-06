@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ErrorMessage from './ErrorMessage';
+import PropTypes from 'prop-types';
 
 
 class NameInput extends React.Component{
@@ -9,7 +10,8 @@ class NameInput extends React.Component{
         super(props);
 
         this.isName =  this.isName.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.handlerOnChange = this.handlerOnChange.bind(this);
+        this.handlerOnFocus = this.handlerOnFocus.bind(this);
         this.state={
             
             error:{
@@ -30,7 +32,19 @@ class NameInput extends React.Component{
         return nameRegex.test(name);
     }
 
-    handleChange(event){
+    handlerOnFocus( event){
+        if(!this.state.touched){
+
+            this.setState((prevState,props) =>{
+                let newState = Object.assign({}, prevState,{touched:true})
+                return newState;
+            })
+
+        }
+
+    }    
+
+    handlerOnChange(event){
         let nameValue = event.target.value.trim();
         //reemplazar espacios en blanco repetidos
         nameValue.replace(/\s+/g,' ') ;
@@ -96,13 +110,19 @@ class NameInput extends React.Component{
 
         return(
         <div>
-            <input type="text" className= {classes} onBlur={this.handleChange}/>
+            <input type="text" className= {classes}  onFocus={this.handlerOnFocus} onChange={this.handlerOnChange}/>
             {showErrorMessage}           
         </div>
             
         );        
     }
 
+}//end class
+
+NameInput.propTypes ={
+    className: PropTypes.string,
+    errorClass: PropTypes.string,
+    setNameState:  PropTypes.func.isRequired
 }
 
 export default NameInput;

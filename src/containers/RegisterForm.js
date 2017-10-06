@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import {FaUser} from 'react-icons/lib/fa';
 
-import EmailInput from './EmailInput';
-import NameInput from './NameInput';
-import PasswordInput from './PasswordInput';
-import RepeatPasswordInput from './RepeatPasswordInput';
+import RepeatPasswordInput from '../components/RepeatPasswordInput';
+
+import EmailInput from '../components/EmailInput';
+import NameInput from '../components/NameInput';
+import PasswordInput from '../components/PasswordInput';
 
 import {connect} from 'react-redux';
 import {signUP} from '../actions';
 
-function errorMessage ( message){
+function errorDiv ( message){
   return (
     <div className="alert alert-danger alert-dismissable">
       <a href="#" className="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -153,7 +154,7 @@ class RegisterForm extends Component {
 
     let errorDiv; 
     if( this.state.error.status){
-       errorDiv =  errorMessage(this.state.error.message)
+       errorDiv =  errorDiv(this.state.error.message)
     }
 
 

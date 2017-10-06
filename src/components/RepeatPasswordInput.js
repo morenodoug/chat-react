@@ -1,14 +1,14 @@
 import React from 'react';
-
-function ErrorMessage(props){
-    return( <p>{props.message}</p> );
-}
+import ErrorMessage from './ErrorMessage';
+import Proptypes from 'prop-types';
 
 class RepeatPasswordInput extends React.Component{
 
     constructor(props){
         super(props);
-        this.handleBlur = this.handleBlur.bind(this);
+        this.handlerOnChange = this.handlerOnChange.bind(this);
+        this.handlerOnFocus = this.handlerOnFocus.bind(this);
+        
 
         this.state={
             touched:false,
@@ -36,7 +36,6 @@ class RepeatPasswordInput extends React.Component{
                 
                 value:this.state.value 
             };         
-
             if(nextProps.compareWith !== this.state.value){
 
                 newState.error.status = true;
@@ -56,7 +55,15 @@ class RepeatPasswordInput extends React.Component{
 
     }
 
-    handleBlur(event){
+    handlerOnFocus (event){
+        if(!this.state.touched){
+            this.setState((prevState,props) =>{
+                let newState = Object.assign({}, prevState, {touched:true})
+            })
+        }
+    }
+    
+    handlerOnChange(event){
 
         let newState={
             touched:true,
@@ -65,7 +72,7 @@ class RepeatPasswordInput extends React.Component{
                 message: null
             },
             
-            value:'' 
+            value:event.target.value 
         };         
 
         if(event.target.value !== this.props.compareWith){
@@ -80,6 +87,7 @@ class RepeatPasswordInput extends React.Component{
         }
 
     }
+
 
 
 
@@ -101,7 +109,7 @@ class RepeatPasswordInput extends React.Component{
 
         return(
         <div>
-            <input type="password" className= {classes} onBlur={this.handleBlur}/>
+            <input type="password" className= {classes}  onFocus={this.handlerOnFocus} onChange={this.handlerOnChange}/>
             {showErrorMessage}           
         </div>
             
@@ -109,6 +117,13 @@ class RepeatPasswordInput extends React.Component{
 
     }
 
+}//end class
+
+RepeatPasswordInput.Proptypes = {
+    setRepeatPasswordState: Proptypes.func.required,
+    compareWith: Proptypes.string.required,
+    classes: Proptypes.string,
+    errorClass: Proptypes.string
 }
 
 

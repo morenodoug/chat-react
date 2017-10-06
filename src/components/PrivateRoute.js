@@ -6,7 +6,7 @@ import {requireAuth} from '../helpers.js'
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
     requireAuth() ? (
-      (<h1>asd</h1>)
+      (<Component/>)
     ) : (
       <Redirect to={{
         pathname: '/sign-in',

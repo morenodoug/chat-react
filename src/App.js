@@ -10,7 +10,7 @@ import {BrowserRouter as Router ,Switch} from 'react-router-dom';
 import PublicRoute from './components/PublicRoute';
 import PrivateRoute from './components/PrivateRoute';
 
-import TotalChat from './components/TotalChat';
+import TotalChat from './containers/TotalChat';
 
 const store = configureStore();
 

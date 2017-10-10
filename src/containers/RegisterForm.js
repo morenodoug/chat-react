@@ -133,6 +133,8 @@ class RegisterForm extends Component {
           let newState = Object.assign(this.state,{isFetching:false}, {error:{status:true, message:response.data.error}});
           this.setState(newState);
 
+        }else{
+          this.props.history.push('/')
         }
 
         

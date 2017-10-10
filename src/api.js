@@ -11,6 +11,21 @@ export default {
     signIn: (email, password) => {
         let payload = { email, password };
         return axios.post(keys.host + '/signin', payload);
+    },
+    getMyProfile: () => {
+        let tokenHeader = 'x-access-token'
+        let requestConfig = {
+
+            headers: {
+                [tokenHeader]: localStorage.getItem('jwt'),
+
+            }
+
+        }
+
+        console.log(requestConfig)
+        return axios.post(keys.host + '/my-profile', null, requestConfig);
+
     }
 
 }

@@ -10,6 +10,8 @@ import {connect} from 'react-redux';
 import {signIn} from '../actions';
 
 import ErrorDiv from '../components/ErrorDiv';
+
+import { withRouter } from 'react-router-dom';
 class SignInForm extends Component { 
 
   constructor(props){
@@ -40,6 +42,10 @@ class SignInForm extends Component {
 
     }
   }// end constructor
+
+  componentWillUnmount(){
+
+  }
 
   setEmailState(error, value){
     
@@ -82,13 +88,15 @@ class SignInForm extends Component {
     
     this.setState( newState, () =>{
       
-      this.props.dispatch(signIn(email, password))
+      this.props.dispatch(signIn(email, password, this.props.history))
       .then((response) =>{
         if (response.status ===401){
 
           let newState = Object.assign(this.state,{isFetching:false}, {error:{status:true, message:response.data.error}});
           this.setState(newState);
 
+        }else{
+          this.props.history.push('/')
         }
 
       })

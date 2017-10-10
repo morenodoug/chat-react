@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 import { SET_USER_INFO } from './actions';
+import { ADD_CHAT_USER } from './actions';
+import { REMOVE_CHAT_USER } from './actions';
 import * as constans from './constans'
 
 let defaultUser = {
@@ -18,15 +20,15 @@ function user(state = defaultUser, action) {
 
             };
 
-        case constans.AUTHENTICATE_STATUS:
-            // console.log('success');
-            // console.log(action.data);
-            return state;
+            // case constans.AUTHENTICATE_STATUS:
+            //     // console.log('success');
+            //     // console.log(action.data);
+            //     return state;
 
-        case constans.USER_SIGNUP_FAIL:
-            console.log('error');
-            console.log(action.error);
-            return state;
+            // case constans.USER_SIGNUP_FAIL:
+            //     console.log('error');
+            //     console.log(action.error);
+            //     return state;
 
         default:
             return state;
@@ -51,8 +53,29 @@ function isAuthenticate(state = false, action) {
     }
 }
 
+function chatUsers(state = {}, action) {
+    switch (action.type) {
+        case ADD_CHAT_USER:
+            return Object.assign({}, state, {
+                [action.chatUser.id]: action.chatUser
+            })
+
+        case REMOVE_CHAT_USER:
+            let newState = Object.assign({}, state);
+            delete newState[action.chatUser]
+            return newState;
+
+        default:
+            return state
+    }
+
+
+
+}
+
 const rootReducer = combineReducers({
     user,
-    isAuthenticate
+    isAuthenticate,
+    chatUsers
 });
 export default rootReducer;

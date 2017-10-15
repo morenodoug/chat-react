@@ -15,15 +15,10 @@ export function setUserInfo(user) {
 
 export const ADD_CHAT_USER = 'ADD_CHAT_USER';
 
-export function addChatUser(id, email, name) {
+export function addChatUser(newUser) {
     return {
         type: ADD_CHAT_USER,
-        chatUser: {
-            id,
-            email,
-            name
-
-        }
+        chatUser: newUser
     }
 }
 
@@ -35,6 +30,17 @@ export function removeChatUser(id) {
         chatUser: id
     }
 }
+
+export const SET_LIST_CHAT = 'SET_LIST_CHAT';
+
+export function setListChat(listChat) {
+
+    return {
+        type: SET_LIST_CHAT,
+        listChat
+    }
+}
+
 
 
 

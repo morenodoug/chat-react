@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom'
 
-import {getMyProfile, signIn} from '../actions'
+import {getMyProfile, signIn, addChatUser,removeChatUser} from '../actions'
+import config from '../config'
+import socketFunctions from '../socket'
 
 
 class TotalChat extends Component{
@@ -13,20 +15,29 @@ class TotalChat extends Component{
     componentDidMount(){
         if(this.props.user.id ===null){
 
-            this.props.dispatch(getMyProfile())
+            this.props.getMyProfile()
             .then( (response) =>{
                 if(response.status === 401 || response.status ===403){
                     localStorage.removeItem('jwt');
-                    this.props.history.push('/')
+                    this.props.history.push('/sign-in');
 
+                }else{
+
+                    socketFunctions.connectToChat(this.props.user,this.props.newUserConnected, this.props.userDisconnected)
                 }
-            }
-                
-            )
-            
-           
 
+
+            })
+ 
+        }else{
+            // io.connect(config.chatHost);
+            socketFunctions.connectToChat(this.props.user,this.props.newUserConnected)
         }
+
+        
+
+
+
     }
 
     render(){
@@ -49,4 +60,19 @@ function mapStateToProps(state){
     }
 }
 
-export default withRouter(connect(mapStateToProps)(TotalChat));
+function mapDispatchToProps(dispatch, ownProps){
+    return{
+        newUserConnected: (user) =>{
+            dispatch(addChatUser(user))
+
+        },
+        getMyProfile:() =>{
+            return dispatch(getMyProfile())
+        },
+        userDisconnected: (userId) =>{
+            dispatch(removeChatUser(userId))
+        }
+    }
+}
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(TotalChat));

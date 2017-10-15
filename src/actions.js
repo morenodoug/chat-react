@@ -31,13 +31,13 @@ export function removeChatUser(id) {
     }
 }
 
-export const SET_LIST_CHAT = 'SET_LIST_CHAT';
+export const SET_CHAT_LIST = 'SET_CHAT_LIST';
 
-export function setListChat(listChat) {
+export function setChatListCreator(chatList) {
 
     return {
-        type: SET_LIST_CHAT,
-        listChat
+        type: SET_CHAT_LIST,
+        chatList
     }
 }
 

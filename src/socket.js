@@ -6,9 +6,10 @@ export default {
     /**
      * 
      */
-    connectToChat: function(user, newUserConnected, userDisconnected) {
+    connectToChat: function(user, newUserConnected, userDisconnected, setChatList) {
         socket.on('users-connected', function(usersConnected) {
-            console.log(usersConnected)
+            setChatList(usersConnected);
+
         })
         socket.emit('connect-to-chat', user)
 

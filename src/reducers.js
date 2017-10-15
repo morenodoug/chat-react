@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { SET_USER_INFO } from './actions';
-import { ADD_CHAT_USER, REMOVE_CHAT_USER, SET_LIST_CHAT } from './actions';
+import { ADD_CHAT_USER, REMOVE_CHAT_USER, SET_CHAT_LIST } from './actions';
 
 import * as constans from './constans'
 
@@ -53,8 +53,8 @@ function chatUsers(state = {}, action) {
             delete newState[action.chatUser]
             return newState;
 
-        case SET_LIST_CHAT:
-            return action.listChat
+        case SET_CHAT_LIST:
+            return action.chatList
         default:
             return state
     }

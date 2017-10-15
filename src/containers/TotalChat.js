@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom'
 
-import {getMyProfile, signIn, addChatUser,removeChatUser} from '../actions'
+import {getMyProfile, signIn, addChatUser,removeChatUser,setChatListCreator} from '../actions'
 import config from '../config'
 import socketFunctions from '../socket'
 
@@ -23,7 +23,10 @@ class TotalChat extends Component{
 
                 }else{
 
-                    socketFunctions.connectToChat(this.props.user,this.props.newUserConnected, this.props.userDisconnected)
+                    socketFunctions.connectToChat(this.props.user,
+                                                  this.props.newUserConnected, 
+                                                  this.props.userDisconnected,
+                                                  this.props.setChatList)
                 }
 
 
@@ -31,7 +34,10 @@ class TotalChat extends Component{
  
         }else{
             // io.connect(config.chatHost);
-            socketFunctions.connectToChat(this.props.user,this.props.newUserConnected)
+            socketFunctions.connectToChat(this.props.user,
+                                          this.props.newUserConnected, 
+                                          this.props.userDisconnected,
+                                          this.props.setChatList)
         }
 
         
@@ -62,15 +68,22 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch, ownProps){
     return{
+        getMyProfile:() =>{
+            return dispatch(getMyProfile())
+        },
+
         newUserConnected: (user) =>{
             dispatch(addChatUser(user))
 
         },
-        getMyProfile:() =>{
-            return dispatch(getMyProfile())
-        },
+
         userDisconnected: (userId) =>{
             dispatch(removeChatUser(userId))
+        },
+
+        setChatList: (chatList) => {
+            dispatch(setChatListCreator(chatList));
+
         }
     }
 }

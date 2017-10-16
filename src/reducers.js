@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { SET_USER_INFO } from './actions';
 import { ADD_CHAT_USER, REMOVE_CHAT_USER, SET_CHAT_LIST } from './actions';
+import { ADD_CONVERSATION_MESSAGE } from './actions'
 
 import * as constans from './constans'
 
@@ -63,9 +64,22 @@ function chatUsers(state = {}, action) {
 
 }
 
+function conversation(state = [], action) {
+    switch (action.type) {
+        case ADD_CONVERSATION_MESSAGE:
+            let newState = state.slice()
+            newState.push(action.message);
+            return newState;
+
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     user,
     isAuthenticate,
-    chatUsers
+    chatUsers,
+    conversation
 });
 export default rootReducer;

@@ -76,3 +76,179 @@ input.input-error {
 .error-div {
     margin-top: 1em;
 }
+
+
+/*USER DIV LIST*/
+
+.users-list-div {
+    border-left-color: black;
+    border-left-width: 1em;
+}
+
+@media(min-width:760px) {
+    .users-list-div {
+        height: 100vh;
+        border-right: black solid 0.16em;
+    }
+}
+
+
+/*CHAT */
+
+.chat {
+    background-color: lightblue;
+    height: 85vh;
+    padding: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+
+/* CSS talk bubble */
+
+.talk-bubble {
+    margin: 40px;
+    display: inline-block;
+    position: relative;
+    width: 80%;
+    height: auto;
+    background-color: lightyellow;
+}
+
+.talk-bubble-my-message {
+    margin: 40px;
+    display: inline-block;
+    position: relative;
+    width: 80%;
+    height: auto;
+    background-color: #DCF8C6;
+}
+
+.hr-my-message {
+    color: #000;
+    border-color: #000;
+}
+
+.round {
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+}
+
+
+/*Right triangle, placed bottom left side slightly in*/
+
+.tri-right.btm-left:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 0px;
+    right: auto;
+    top: auto;
+    bottom: -20px;
+    border: 22px solid;
+    border-color: transparent transparent transparent lightyellow;
+}
+
+
+/* talk bubble contents */
+
+.talktext {
+    padding: 2em;
+    text-align: left;
+    line-height: 1.5em;
+    overflow: hidden;
+}
+
+.talktext p {
+    /* remove webkit p margins */
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+}
+
+.talktext .user-name {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.talktext span.date {
+    float: right;
+    font-size: 10px;
+    color: #254984;
+    font-style: italic;
+}
+
+
+/* Right triangle, right side slightly down*/
+
+.tri-right.border.right-in:before {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: auto;
+    right: -40px;
+    top: 30px;
+    bottom: auto;
+    border: 20px solid;
+    border-color: #666 transparent transparent #666;
+}
+
+.tri-right.right-in:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: auto;
+    right: -20px;
+    top: 38px;
+    bottom: auto;
+    border: 12px solid;
+    border-color: #DCF8C6 transparent transparent#DCF8C6;
+}
+
+.message-box {
+    padding-top: 1em;
+}
+
+.message-button {
+    padding-top: 0.8em;
+}
+
+.text-area-message {
+    resize: none;
+}
+
+
+/*USER DIV*/
+
+.user-div {
+    background-color: #fff;
+    padding-bottom: 1.1em;
+}
+
+.user-div:after {
+    content: "";
+    background: #128C7E;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 0.15em;
+    width: 85%;
+}
+
+.user-div-border:after {
+    z-index: 2;
+    content: "";
+    background: #128C7E;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 25%;
+    width: 0.10em;
+}
+
+
+/*USER DIV*/

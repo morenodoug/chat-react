@@ -6,6 +6,8 @@ import {getMyProfile, signIn, addChatUser,removeChatUser,setChatListCreator} fro
 import config from '../config'
 import socketFunctions from '../socket'
 
+import UsersList from '../components/UsersList'
+import ChatBox from '../containers/ChatBox'
 
 class TotalChat extends Component{
 
@@ -48,10 +50,10 @@ class TotalChat extends Component{
 
     render(){
         return(
-                <div className="container">
+                <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-4"></div>
-                        <div className="col-md-8"></div>
+                        <div className="col-md-4 users-list-div"><UsersList  usersList={this.props.usersList}/> </div>
+                        <div className="col-md-8"><ChatBox/></div>
                     </div>
                 </div>               
             );        
@@ -62,7 +64,8 @@ class TotalChat extends Component{
 function mapStateToProps(state){
 
     return{
-        user: state.user
+        user: state.user,
+        usersList: state.chatUsers
     }
 }
 

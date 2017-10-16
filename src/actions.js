@@ -1,5 +1,6 @@
 import api from './api'
 import * as constans from './constans';
+import * as moment from 'moment';
 
 export const SET_USER_INFO = "SET_USER_INFO";
 
@@ -42,6 +43,22 @@ export function setChatListCreator(chatList) {
 }
 
 
+/**
+ * MANEJAR CONVERSATIONS
+ */
+
+export const ADD_CONVERSATION_MESSAGE = 'ADD_CONVERSATION_MESSAGE';
+export function addConversationMessage(userInfo, message) {
+    return {
+        type: ADD_CONVERSATION_MESSAGE,
+        message: {
+            userInfo,
+            message: message,
+            date: moment.moment().format('d m yyyy')
+        }
+
+    }
+}
 
 
 export function userSignUpFail() {
@@ -67,8 +84,6 @@ export const authenticateSuccess = (userData) => (dispatch, getState) => {
     localStorage.setItem('jwt', userData.token);
 
     dispatch(setUserInfo(userData))
-
-    // window.location.assign('/');
 
 }
 

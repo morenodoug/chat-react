@@ -14,7 +14,7 @@ let defaultUser = {
 function user(state = defaultUser, action) {
     switch (action.type) {
         case (SET_USER_INFO):
-            return {
+            return { 
                 name: action.user.name,
                 email: action.user.email,
                 id: action.user.id,

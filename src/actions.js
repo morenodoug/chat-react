@@ -54,7 +54,7 @@ export function addConversationMessage(userInfo, message) {
         message: {
             userInfo,
             message: message,
-            date: moment.moment().format('d m yyyy')
+            date: '11111' //moment.moment().format('d m yyyy')
         }
 
     }

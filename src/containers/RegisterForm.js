@@ -10,14 +10,7 @@ import PasswordInput from '../components/PasswordInput';
 import {connect} from 'react-redux';
 import {signUP} from '../actions';
 
-function errorDiv ( message){
-  return (
-    <div className="alert alert-danger alert-dismissable">
-      <a href="#" className="close" data-dismiss="alert" aria-label="close">&times;</a>
-      {message}.
-    </div>
-  )
-}
+import ErrorDiv from '../components/ErrorDiv';
 
 class RegisterForm extends Component {
 
@@ -29,6 +22,7 @@ class RegisterForm extends Component {
     this.setPasswordState = this.setPasswordState.bind(this);
     this.setRepeatPasswordState =  this.setRepeatPasswordState.bind(this);
     this.handleRegisterButton = this.handleRegisterButton.bind(this);
+    this.changeErrorStatus =  this.changeErrorStatus.bind(this);
     
     this.state =   {
         registerForm:{
@@ -92,7 +86,7 @@ class RegisterForm extends Component {
 
   setPasswordState(error,value){
 
-    this.setState((prevState,props) =>{
+    this.setState((prevState,props) =>{ 
       
       let registerFormState = Object.assign({}, prevState.registerForm);
       registerFormState.password.error = error;
@@ -141,9 +135,16 @@ class RegisterForm extends Component {
 
       })
     });
-
-    
   }
+  
+  changeErrorStatus(){
+    this.setState((prevState,props) =>{
+      let newState = Object.assign(prevState, {  error:{ status:false,    message:''  }})
+      return newState;
+    })
+
+  }  
+
     
   
   render() {
@@ -156,7 +157,7 @@ class RegisterForm extends Component {
 
     let errorDiv; 
     if( this.state.error.status){
-       errorDiv =  errorDiv(this.state.error.message)
+       errorDiv =  <ErrorDiv message ={this.state.error.message}  eliminarDiv ={this.changeErrorStatus}/>
     }
 
 

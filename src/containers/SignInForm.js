@@ -20,7 +20,8 @@ class SignInForm extends Component {
     this.setEmailState = this.setEmailState.bind(this);
     this.setPasswordState = this.setPasswordState.bind(this);
     this.handleSignInButton = this.handleSignInButton.bind(this);
-    
+    this.changeErrorStatus = this.changeErrorStatus.bind(this);
+        
     this.state =   {
         signInForm:{
           email:{
@@ -100,9 +101,14 @@ class SignInForm extends Component {
         }
 
       })
-    });
+    });    
+  }
+  changeErrorStatus(){
+    this.setState((prevState,props) =>{
+      let newState = Object.assign(prevState, {  error:{ status:false,    message:''  }})
+      return newState;
+    })
 
-    
   }
     
   
@@ -115,7 +121,8 @@ class SignInForm extends Component {
 
     let errorDiv; 
     if( this.state.error.status){
-       errorDiv =  ErrorDiv(this.state.error.message)
+      //  errorDiv =  ErrorDiv(this.state.error.message)
+      errorDiv = <ErrorDiv message= {this.state.error.message} eliminarDiv ={this.changeErrorStatus}/>
     }
 
 
@@ -155,7 +162,7 @@ class SignInForm extends Component {
 
             <div className="row">
 
-              <div className="col-md-12">
+              <div className="col-md-12 text-center">
                 <button className="btn btn-success" 
                   disabled={disabledButton} 
                   onClick = {this.handleSignInButton} 
@@ -167,7 +174,7 @@ class SignInForm extends Component {
             </div>
 
             <div className="row error-div">
-                <div className="col-md-12">
+                <div className="col-md-12 text-center">
                   {errorDiv}
                 </div>
                 

@@ -48,8 +48,12 @@ class TotalChat extends Component{
         return(
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-4 users-list-div"><UsersList  usersList={this.props.usersList}/> </div>
-                        <div className="col-md-8"><ChatBox/></div>
+                        <div className="col-md-4 users-list-div">
+                            <UsersList  usersList={this.props.usersList}/> 
+                        </div>
+                        <div className="col-md-8">
+                            <ChatBox/>
+                        </div>
                     </div>
                 </div>               
             );        

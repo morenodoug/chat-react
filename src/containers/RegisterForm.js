@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 import {signUP} from '../actions';
 
 import ErrorDiv from '../components/ErrorDiv';
-
+import {Link} from 'react-router-dom';
 class RegisterForm extends Component {
 
   constructor(props){
@@ -216,7 +216,7 @@ class RegisterForm extends Component {
             </div>
             <div className="row">
 
-              <div className="col-md-12">
+              <div className="col-md-12 text-center">
                 <button className="btn btn-success" 
                   disabled={disabledButton} 
                   onClick = {this.handleRegisterButton} 
@@ -226,6 +226,12 @@ class RegisterForm extends Component {
               </div>
 
             </div>
+            <div className="row">
+              <div className="col-md-12 text-center">
+                 <Link to="/sign-in">Iniciar Sesion</Link>
+
+              </div>
+            </div>            
 
             <div className="row error-div">
                 <div className="col-md-12">

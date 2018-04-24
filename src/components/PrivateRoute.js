@@ -5,14 +5,14 @@ import {requireAuth} from '../helpers.js'
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
-    requireAuth() ? (
-      (<Component/>)
-    ) : (
+    (requireAuth()) ? 
+      <Component/>
+     : 
       <Redirect to={{
         pathname: '/sign-in',
         state: { from: props.location }
       }}/>
-    )
+    
   )}/>
 )
 

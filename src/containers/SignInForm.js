@@ -12,6 +12,7 @@ import {signIn} from '../actions';
 import ErrorDiv from '../components/ErrorDiv';
 
 import { withRouter } from 'react-router-dom';
+import {Link} from 'react-router-dom'
 class SignInForm extends Component { 
 
   constructor(props){
@@ -171,6 +172,12 @@ class SignInForm extends Component {
                 </button>
               </div>
 
+            </div>
+            <div className="row">
+              <div className="col-md-12 text-center">
+                <p> Si no tienes una cuenta <Link to="/sign-up">Registrate</Link></p>
+
+              </div>
             </div>
 
             <div className="row error-div">

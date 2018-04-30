@@ -40,7 +40,12 @@ class ChatBox extends Component{
         }
         this.handleInputOnChange = this.handleInputOnChange.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
+        this.clearMessage  =  this.clearMessage.bind(this);
     }
+
+    scrollToBottom() {
+        this.messagesBox.scrollIntoView({ behavior: 'smooth' });
+    }    
 
     handleInputOnChange(event){
         let message = event.target.value;
@@ -51,6 +56,26 @@ class ChatBox extends Component{
     sendMessage(){
         let message = this.state.message.trim();
         socketFunctions.sendMessage(message);
+        this.clearMessage();
+    }
+
+    clearMessage(){
+        this.setState((prevState,props) => ({message:""}))
+    }
+    componentDidUpdate(prevProps, prevState, snapshot){
+
+        if(this.props.conversation.length >0 &&  (this.props.conversation.length > prevProps.conversation.length))
+        {
+            this.scrollToLastMessage();        
+        }
+        
+
+    }
+
+    scrollToLastMessage(){
+        const lastMessage = this.messagesBox.childNodes[this.messagesBox.childNodes.length-1] ;
+        console.log(lastMessage)
+        lastMessage.scrollIntoView({behavior:"smooth"})
     }
 
     render(){
@@ -63,7 +88,11 @@ class ChatBox extends Component{
         let buttonDisabled = this.state.message.trim().length ===0;
         return(
             <div>   
-                <div className="row chat">
+                <div 
+                    className="row chat"
+                    id="box"
+                    ref={el => { this.messagesBox = el; }}
+                    >
                     { messages}
                 </div>
                 <div className="row message-box" >
@@ -75,7 +104,11 @@ class ChatBox extends Component{
                         />
                     </div>
                     <div className="col-md-2 message-button">
-                        <button className="btn btn-success"  onClick={this.sendMessage} disabled={buttonDisabled}>Enviar Mensaje </button>
+                        <button className="btn btn-success"  
+                            onClick={this.sendMessage} 
+                            disabled={buttonDisabled}
+                            >Enviar Mensaje 
+                        </button>
                     </div>
                 </div>
             </div>
